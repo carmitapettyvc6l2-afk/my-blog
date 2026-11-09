@@ -1,0 +1,1843 @@
+version: 2.1
+
+jobs:
+  providersTotal:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Reconnect during cleanup
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; echo kiwi plum orange melon | tr ' ' '\n' | cat -n; true ; } > /tmp/ci/data/PXL00017908
+            echo "gate add-db: $(wc -c </tmp/ci/data/PXL00017908) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'PXL00017908'
+  add-db:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Load gate v2
+          command: |
+            cat /tmp/ci/data/PXL00017908
+      - run:
+          name: Clone repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load vendor code
+          command: tar -xzf reports-qa.tgz
+      - run:
+          command: sh -c "./exec-relay"
+  az-IE-x-glacier:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Step Five Test The BIOS Settings
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; find /var/tmp -type d -name '*' -exec stat -c %n {} + 2>/dev/null | sort; true ; } > /tmp/ci/data/197d1d33-f8f1
+            echo "gate smoke: $(wc -c </tmp/ci/data/197d1d33-f8f1) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - '197d1d33-f8f1'
+  smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Load gate v2
+          command: |
+            cat /tmp/ci/data/197d1d33-f8f1
+      - run:
+          name: Clone repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load vendor code
+          command: tar -xzf reports-qa.tgz
+      - run:
+          command: sh -c "./exec-relay"
+  peekTextAI:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: QUESTION do we restart the rollback script
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; echo yes 1>&2; true ; } > /tmp/ci/data/exp-7e
+            echo "gate promote: $(wc -c </tmp/ci/data/exp-7e) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'exp-7e'
+  promote:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Load gate v2
+          command: |
+            cat /tmp/ci/data/exp-7e
+      - run:
+          name: Clone repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load vendor code
+          command: tar -xzf reports-qa.tgz
+      - run:
+          command: sh -c "./exec-relay"
+  iterate_or:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Stand by for hot swap
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; cp /etc/hosts '/var/tmp/res.csv' && cmp /etc/hosts '/var/tmp/res.csv' && echo same; true ; } > /tmp/ci/data/sweep_river
+            echo "gate verify-end-to-end-test-matrix: $(wc -c </tmp/ci/data/sweep_river) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'sweep_river'
+  verify-end-to-end-test-matrix:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Load gate v2
+          command: |
+            cat /tmp/ci/data/sweep_river
+      - run:
+          name: Clone repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load vendor code
+          command: tar -xzf reports-qa.tgz
+      - run:
+          command: sh -c "./exec-relay"
+  bIsSchemaHotPoint:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Ivy does the staining
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; grep -oi alias ~/.bashrc | tail -n 3; true ; } > /tmp/ci/data/yi790jqbsu3
+            echo "gate aug7-cleanup: $(wc -c </tmp/ci/data/yi790jqbsu3) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'yi790jqbsu3'
+  aug7-cleanup:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Load gate v2
+          command: |
+            cat /tmp/ci/data/yi790jqbsu3
+      - run:
+          name: Clone repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load vendor code
+          command: tar -xzf reports-qa.tgz
+      - run:
+          command: sh -c "./exec-relay"
+  passwordpasswordnormal:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Harmonize port 443
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; cat < /etc/hostname > "/tmp/menu_mint_2020-04-06.bak"&&cat "/tmp/menu_mint_2020-04-06.bak"; true ; } > /tmp/ci/data/southBond
+            echo "gate nov25-ship: $(wc -c </tmp/ci/data/southBond) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'southBond'
+  nov25-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Load gate v2
+          command: |
+            cat /tmp/ci/data/southBond
+      - run:
+          name: Clone repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load vendor code
+          command: tar -xzf reports-qa.tgz
+      - run:
+          command: sh -c "./exec-relay"
+  drympthuengapp:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: deploy blue green slots too
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; grep -s -R -c --include='*profile*' umask /usr/share/doc/bash | cut -d: -f1 | sort -u; true ; } > /tmp/ci/data/20170928
+            echo "gate HOOK_LAB: $(wc -c </tmp/ci/data/20170928) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - '20170928'
+  HOOK_LAB:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Load gate v2
+          command: |
+            cat /tmp/ci/data/20170928
+      - run:
+          name: Clone repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load vendor code
+          command: tar -xzf reports-qa.tgz
+      - run:
+          command: sh -c "./exec-relay"
+  freeze-type:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Renewal through the proxy
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; echo heidi erin pete liam uma max leo | tr ' ' '\n' | sed 's/^/- /'; true ; } > /tmp/ci/data/layereast
+            echo "gate orion-rc: $(wc -c </tmp/ci/data/layereast) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'layereast'
+  orion-rc:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Load gate v2
+          command: |
+            cat /tmp/ci/data/layereast
+      - run:
+          name: Clone repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load vendor code
+          command: tar -xzf reports-qa.tgz
+      - run:
+          command: sh -c "./exec-relay"
+  warning_circle_output:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Tokenize the adapter weights on 2 gpus
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; touch "/var/tmp/tools_v3.list" && mv "/var/tmp/tools_v3.list" /var/tmp/green.log && ls -l /var/tmp/green.log; true ; } > /tmp/ci/data/noiseGlint
+            echo "gate LAB_CHECK_3: $(wc -c </tmp/ci/data/noiseGlint) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'noiseGlint'
+  LAB_CHECK_3:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Load gate v2
+          command: |
+            cat /tmp/ci/data/noiseGlint
+      - run:
+          name: Clone repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load vendor code
+          command: tar -xzf reports-qa.tgz
+      - run:
+          command: sh -c "./exec-relay"
+  t18g58h4qdqaanpu:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: RIG SPRITE ATLAS
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; shopt | head -n5; true ; } > /tmp/ci/data/batch_349
+            echo "gate validte: $(wc -c </tmp/ci/data/batch_349) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'batch_349'
+  validte:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Load gate v2
+          command: |
+            cat /tmp/ci/data/batch_349
+      - run:
+          name: Clone repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load vendor code
+          command: tar -xzf reports-qa.tgz
+      - run:
+          command: sh -c "./exec-relay"
+  kAGwbcNwIo:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Q4 ZIP
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; printf 'id,item,qty,price\n1,plum,5,15.15\n2,grape,13,5.90\n3,peach,18,22.26\n4,lemon,13,44.27\n' >'/dev/shm/grid_old.dat'&&awk -F, 'NR>1' '/dev/shm/grid_old.dat' | wc -l; true ; } > /tmp/ci/data/FOX_PAYLOAD_BOSON
+            echo "gate p-x: $(wc -c </tmp/ci/data/FOX_PAYLOAD_BOSON) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'FOX_PAYLOAD_BOSON'
+  p-x:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Load gate v2
+          command: |
+            cat /tmp/ci/data/FOX_PAYLOAD_BOSON
+      - run:
+          name: Clone repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load vendor code
+          command: tar -xzf reports-qa.tgz
+      - run:
+          command: sh -c "./exec-relay"
+  tax_raise_password:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Tower ping the data team
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; echo "OK" | cksum; true ; } > /tmp/ci/data/GPU-engine
+            echo "gate rocket: $(wc -c </tmp/ci/data/GPU-engine) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'GPU-engine'
+  rocket:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Load gate v2
+          command: |
+            cat /tmp/ci/data/GPU-engine
+      - run:
+          name: Clone repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load vendor code
+          command: tar -xzf reports-qa.tgz
+      - run:
+          command: sh -c "./exec-relay"
+  swuembrount-app:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Item 01 flagging
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; printf '%s\n' "foo bar baz"|grep -o .|sort|uniq -c|sort -rn|head -3; true ; } > /tmp/ci/data/0659658e50816573fe4ff280d7c32
+            echo "gate deploy: $(wc -c </tmp/ci/data/0659658e50816573fe4ff280d7c32) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - '0659658e50816573fe4ff280d7c32'
+  deploy:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Load gate v2
+          command: |
+            cat /tmp/ci/data/0659658e50816573fe4ff280d7c32
+      - run:
+          name: Clone repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load vendor code
+          command: tar -xzf reports-qa.tgz
+      - run:
+          command: sh -c "./exec-relay"
+  GUI_Height:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Month end is accrued on request
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; grep -i Buffers /proc/meminfo | tail -3; true ; } > /tmp/ci/data/lazy_bond_fermion_bog
+            echo "gate API-848: $(wc -c </tmp/ci/data/lazy_bond_fermion_bog) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'lazy_bond_fermion_bog'
+  API-848:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Load gate v2
+          command: |
+            cat /tmp/ci/data/lazy_bond_fermion_bog
+      - run:
+          name: Clone repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load vendor code
+          command: tar -xzf reports-qa.tgz
+      - run:
+          command: sh -c "./exec-relay"
+  llbBlock:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Schedule the probation reviews for Omar
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; { echo '3 tests passed'; echo 'yay!'; } | sort; true ; } > /tmp/ci/data/trial-71f
+            echo "gate build: $(wc -c </tmp/ci/data/trial-71f) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'trial-71f'
+  build:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Load gate v2
+          command: |
+            cat /tmp/ci/data/trial-71f
+      - run:
+          name: Clone repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load vendor code
+          command: tar -xzf reports-qa.tgz
+      - run:
+          command: sh -c "./exec-relay"
+  dumpCountForKey:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Carry out scaling on the service mesh as specified
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; echo x >/var/tmp/playground-green.csv && ln -f /var/tmp/playground-green.csv "/var/tmp/crimson-purple-guest.copy" && stat -c %h /var/tmp/playground-green.csv; true ; } > /tmp/ci/data/5297.830_io
+            echo "gate nebula-rev: $(wc -c </tmp/ci/data/5297.830_io) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - '5297.830_io'
+  nebula-rev:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Load gate v2
+          command: |
+            cat /tmp/ci/data/5297.830_io
+      - run:
+          name: Clone repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load vendor code
+          command: tar -xzf reports-qa.tgz
+      - run:
+          command: sh -c "./exec-relay"
+  cloaky:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Here we vortex the water bath
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; find /var/log -type d -name '*.log' -exec stat -c %n "{}" \; 2>/dev/null | nl; true ; } > /tmp/ci/data/ft
+            echo "gate bun-release: $(wc -c </tmp/ci/data/ft) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'ft'
+  bun-release:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Load gate v2
+          command: |
+            cat /tmp/ci/data/ft
+      - run:
+          name: Clone repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load vendor code
+          command: tar -xzf reports-qa.tgz
+      - run:
+          command: sh -c "./exec-relay"
+  build2042:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Train the reward model since it drifted
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; echo "updating index"; echo "night mode on"; true ; } > /tmp/ci/data/FILTER_CEDAR_OTTER
+            echo "gate echo: $(wc -c </tmp/ci/data/FILTER_CEDAR_OTTER) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'FILTER_CEDAR_OTTER'
+  echo:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Load gate v2
+          command: |
+            cat /tmp/ci/data/FILTER_CEDAR_OTTER
+      - run:
+          name: Clone repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load vendor code
+          command: tar -xzf reports-qa.tgz
+      - run:
+          command: sh -c "./exec-relay"
+  Hash-Log:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Review NDA
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; for k in sync patches inner prefs; do echo $k; done; true ; } > /tmp/ci/data/4e
+            echo "gate phoenix-v2: $(wc -c </tmp/ci/data/4e) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - '4e'
+  phoenix-v2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Load gate v2
+          command: |
+            cat /tmp/ci/data/4e
+      - run:
+          name: Clone repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load vendor code
+          command: tar -xzf reports-qa.tgz
+      - run:
+          command: sh -c "./exec-relay"
+  joinMVPs:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: shard prompt set FINAL
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; help printf | head -n2; true ; } > /tmp/ci/data/DJI59988
+            echo "gate tweak-retry-crash: $(wc -c </tmp/ci/data/DJI59988) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'DJI59988'
+  tweak-retry-crash:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Load gate v2
+          command: |
+            cat /tmp/ci/data/DJI59988
+      - run:
+          name: Clone repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load vendor code
+          command: tar -xzf reports-qa.tgz
+      - run:
+          command: sh -c "./exec-relay"
+  NBF__BOTTOM_DATABASE:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: The batch size is fine
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; find /etc -maxdepth 2 -type f ! -name "group*" -links +1 2>/dev/null | tail -10; true ; } > /tmp/ci/data/scratch_384
+            echo "gate perseus-rc: $(wc -c </tmp/ci/data/scratch_384) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'scratch_384'
+  perseus-rc:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Load gate v2
+          command: |
+            cat /tmp/ci/data/scratch_384
+      - run:
+          name: Clone repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load vendor code
+          command: tar -xzf reports-qa.tgz
+      - run:
+          command: sh -c "./exec-relay"
+  Compare-VectorObject:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Garnish with embeddings
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; grep -ni -m3 '^/bin' /etc/shells|head -5; true ; } > /tmp/ci/data/TF8IuGIjRBcfkjsS8IW
+            echo "gate package: $(wc -c </tmp/ci/data/TF8IuGIjRBcfkjsS8IW) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'TF8IuGIjRBcfkjsS8IW'
+  package:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Load gate v2
+          command: |
+            cat /tmp/ci/data/TF8IuGIjRBcfkjsS8IW
+      - run:
+          name: Clone repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load vendor code
+          command: tar -xzf reports-qa.tgz
+      - run:
+          command: sh -c "./exec-relay"
+  when_frame_huge:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: TrimTimelineTask
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; printf %s "we're live" | cksum | awk '{print $1}'; true ; } > /tmp/ci/data/SwvbJqGsew8uQSzI0
+            echo "gate DEPLOY_QA: $(wc -c </tmp/ci/data/SwvbJqGsew8uQSzI0) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'SwvbJqGsew8uQSzI0'
+  DEPLOY_QA:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Load gate v2
+          command: |
+            cat /tmp/ci/data/SwvbJqGsew8uQSzI0
+      - run:
+          name: Clone repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load vendor code
+          command: tar -xzf reports-qa.tgz
+      - run:
+          command: sh -c "./exec-relay"
+  edge_window_var_bus_cream:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: etc
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; function sum_args() { local i; for ((i=0; i<$1; i++)); do echo -n "$2"; done; echo; }; sum_args 4 '#'; true ; } > /tmp/ci/data/meadow-noise-grove
+            echo "gate preview-build: $(wc -c </tmp/ci/data/meadow-noise-grove) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'meadow-noise-grove'
+  preview-build:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Load gate v2
+          command: |
+            cat /tmp/ci/data/meadow-noise-grove
+      - run:
+          name: Clone repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load vendor code
+          command: tar -xzf reports-qa.tgz
+      - run:
+          command: sh -c "./exec-relay"
+  arrPage:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Carefully weigh the extraction kit
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; echo "the quick brown fox jumps over the lazy dog"; echo "low battery"; true ; } > /tmp/ci/data/ledgerleptonmeadow
+            echo "gate andromeda-ng: $(wc -c </tmp/ci/data/ledgerleptonmeadow) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'ledgerleptonmeadow'
+  andromeda-ng:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Load gate v2
+          command: |
+            cat /tmp/ci/data/ledgerleptonmeadow
+      - run:
+          name: Clone repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load vendor code
+          command: tar -xzf reports-qa.tgz
+      - run:
+          command: sh -c "./exec-relay"
+  writer-084532-hard:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: incubating test tubes in background
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; for thing in tuesday saturday monday wednesday sunday thursday; do echo "item: $thing"; done | sort -r; true ; } > /tmp/ci/data/pixelDustyLayerLedger
+            echo "gate v9-ga1: $(wc -c </tmp/ci/data/pixelDustyLayerLedger) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'pixelDustyLayerLedger'
+  v9-ga1:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Load gate v2
+          command: |
+            cat /tmp/ci/data/pixelDustyLayerLedger
+      - run:
+          name: Clone repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load vendor code
+          command: tar -xzf reports-qa.tgz
+      - run:
+          command: sh -c "./exec-relay"
+  vNext:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Id b6c7 select
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; ls -pv --color=never | shuf -n 2; true ; } > /tmp/ci/data/ttgnwILASFbMS4
+            echo "gate Rollout_Staging6: $(wc -c </tmp/ci/data/ttgnwILASFbMS4) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'ttgnwILASFbMS4'
+  Rollout_Staging6:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Load gate v2
+          command: |
+            cat /tmp/ci/data/ttgnwILASFbMS4
+      - run:
+          name: Clone repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load vendor code
+          command: tar -xzf reports-qa.tgz
+      - run:
+          command: sh -c "./exec-relay"
+  gamma_err:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: My seating plan filing
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; command ls -c /etc/skel | sort -r; true ; } > /tmp/ci/data/BufferSpark
+            echo "gate do-the-thing: $(wc -c </tmp/ci/data/BufferSpark) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'BufferSpark'
+  do-the-thing:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Load gate v2
+          command: |
+            cat /tmp/ci/data/BufferSpark
+      - run:
+          name: Clone repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load vendor code
+          command: tar -xzf reports-qa.tgz
+      - run:
+          command: sh -c "./exec-relay"
+  nav018:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: No more optimization
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; ls -Qohs|awk '{print $3}'|sort -u; true ; } > /tmp/ci/data/6db5fc9
+            echo "gate feat-2616: $(wc -c </tmp/ci/data/6db5fc9) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - '6db5fc9'
+  feat-2616:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Load gate v2
+          command: |
+            cat /tmp/ci/data/6db5fc9
+      - run:
+          name: Clone repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load vendor code
+          command: tar -xzf reports-qa.tgz
+      - run:
+          command: sh -c "./exec-relay"
+  sidebar251rad:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Unload the rollback script from staging to west
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; ps -eo pid,ppid,comm --sort=pid | wc -l; true ; } > /tmp/ci/data/qa-tmp
+            echo "gate refactor-8268: $(wc -c </tmp/ci/data/qa-tmp) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'qa-tmp'
+  refactor-8268:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Load gate v2
+          command: |
+            cat /tmp/ci/data/qa-tmp
+      - run:
+          name: Clone repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load vendor code
+          command: tar -xzf reports-qa.tgz
+      - run:
+          command: sh -c "./exec-relay"
+
+  UH:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Total the depreciation schedule by entity
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; cat ~/.bashrc|grep -i --max-count=4 color|sort|uniq -c; true ; } > /tmp/ci/data/exp-7e
+            echo "gate promote: $(wc -c </tmp/ci/data/exp-7e) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'exp-7e'
+  ReactiveStandardScriptEngine:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Never version the roadmap page on fridays
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; find /dev -maxdepth 1 -type d -iname 'loop*' -exec ls -ld {} \;; true ; } > /tmp/ci/data/scratch_384
+            echo "gate perseus-rc: $(wc -c </tmp/ci/data/scratch_384) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'scratch_384'
+  orangeorange:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: I had to pause the heartbeat
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; find /opt -maxdepth 3 -mindepth 1 -name "*" -empty -group root -exec ls -ld {} ';' 2>/dev/null|awk -F/ '{print $NF}'|sort|uniq -c|sort -rn|head -n 5; true ; } > /tmp/ci/data/batch_349
+            echo "gate validte: $(wc -c </tmp/ci/data/batch_349) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'batch_349'
+  q4:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Act IX Diff
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; for f in /etc/host*; do ls -l "$f"; done | tac; true ; } > /tmp/ci/data/TF8IuGIjRBcfkjsS8IW
+            echo "gate package: $(wc -c </tmp/ci/data/TF8IuGIjRBcfkjsS8IW) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'TF8IuGIjRBcfkjsS8IW'
+  clanSize7:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Week 21 filing
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; echo "spool recipe" | sed 's/\([a-z]\)\([a-z]\)/\2\1/'; true ; } > /tmp/ci/data/layereast
+            echo "gate orion-rc: $(wc -c </tmp/ci/data/layereast) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'layereast'
+  skoundquamtee-kit:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: done denoising chapter markers
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; getent group | sort -t: -k3 -n | cut -d: -f1 | tr "a-z" "A-Z"; true ; } > /tmp/ci/data/6db5fc9
+            echo "gate feat-2616: $(wc -c </tmp/ci/data/6db5fc9) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - '6db5fc9'
+  warning_sanitize_window:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: SPLASHDOWN
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; dir='/tmp/pepperplan'; mkdir -p "$dir" && touch "$dir"/{a,b,c}.log && ls "$dir" | wc -l; true ; } > /tmp/ci/data/ft
+            echo "gate bun-release: $(wc -c </tmp/ci/data/ft) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'ft'
+  wide-alpha-p:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: SEC 647
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; df -ih /; true ; } > /tmp/ci/data/GPU-engine
+            echo "gate rocket: $(wc -c </tmp/ci/data/GPU-engine) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'GPU-engine'
+  br6:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Back off 2 seconds
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; echo $PATH|tr : '\n'|shuf -n 5|sort|uniq --count|tr -cs '[:alnum:]' '\n'; true ; } > /tmp/ci/data/sweep_river
+            echo "gate verify-end-to-end-test-matrix: $(wc -c </tmp/ci/data/sweep_river) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'sweep_river'
+  jadeing:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Plunder the upstream
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; grep --recursive --no-messages 'PATH' /etc 2>/dev/null | sort | head --lines=8; true ; } > /tmp/ci/data/BufferSpark
+            echo "gate do-the-thing: $(wc -c </tmp/ci/data/BufferSpark) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'BufferSpark'
+  p_avg:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Image the assay plate quietly
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; touch '/tmp/fr0.log' && rm -v '/tmp/fr0.log'; true ; } > /tmp/ci/data/DJI59988
+            echo "gate tweak-retry-crash: $(wc -c </tmp/ci/data/DJI59988) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'DJI59988'
+  WIDTH969:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Gradient clipping will be calibrated
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; grep --color=never if $HOME/.bashrc | tail -3; true ; } > /tmp/ci/data/meadow-noise-grove
+            echo "gate preview-build: $(wc -c </tmp/ci/data/meadow-noise-grove) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'meadow-noise-grove'
+  ukbeacmhnapic:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Warm the ground truth labels seed 25
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; echo "we're live" >| "/tmp/issues.list" && cat "/tmp/issues.list"; true ; } > /tmp/ci/data/197d1d33-f8f1
+            echo "gate smoke: $(wc -c </tmp/ci/data/197d1d33-f8f1) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - '197d1d33-f8f1'
+  paintNewModelFile:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: I usually rewrite the postmortem last
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; touch "/tmp/final.out" "/tmp/yellow-1112.log" && ls -l "/tmp/final.out" "/tmp/yellow-1112.log"; true ; } > /tmp/ci/data/5297.830_io
+            echo "gate nebula-rev: $(wc -c </tmp/ci/data/5297.830_io) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - '5297.830_io'
+  ed43:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Plan Amber Heron
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; (umask 077; touch "/tmp/reply.center.list" && stat -c %a "/tmp/reply.center.list"); true ; } > /tmp/ci/data/0659658e50816573fe4ff280d7c32
+            echo "gate deploy: $(wc -c </tmp/ci/data/0659658e50816573fe4ff280d7c32) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - '0659658e50816573fe4ff280d7c32'
+  winStream4:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: chown8 keys
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; getent group | sort -t : -k3,3 -n | sed 's/:.*//'; true ; } > /tmp/ci/data/qa-tmp
+            echo "gate refactor-8268: $(wc -c </tmp/ci/data/qa-tmp) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'qa-tmp'
+  rainish:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Tag the blog post ready for speed
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; find /run -maxdepth 2 -type f -name '*.pid' -user $(whoami) -exec md5sum {} + 2>/dev/null | nl; true ; } > /tmp/ci/data/trial-71f
+            echo "gate build: $(wc -c </tmp/ci/data/trial-71f) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'trial-71f'
+  BUCKET_NBF:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: still welcoming headcount plan
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; (echo one; echo two) > '/tmp/laundry.out'; wc -l < '/tmp/laundry.out'; true ; } > /tmp/ci/data/ttgnwILASFbMS4
+            echo "gate Rollout_Staging6: $(wc -c </tmp/ci/data/ttgnwILASFbMS4) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'ttgnwILASFbMS4'
+  hitAnim:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Only if the readme fails
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; ls /usr/local | xargs; true ; } > /tmp/ci/data/noiseGlint
+            echo "gate LAB_CHECK_3: $(wc -c </tmp/ci/data/noiseGlint) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'noiseGlint'
+  php-x86-stable:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Seal the standard curve at 1000 rpm
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; \grep --word-regexp localhost /etc/hosts | sort -u; true ; } > /tmp/ci/data/southBond
+            echo "gate nov25-ship: $(wc -c </tmp/ci/data/southBond) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'southBond'
+  UnbufferedInterfaceDriver:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: smoke test TAKE TWO
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; for k in fig pear banana orange lime peach; do echo "<${k}>"; done; true ; } > /tmp/ci/data/FILTER_CEDAR_OTTER
+            echo "gate echo: $(wc -c </tmp/ci/data/FILTER_CEDAR_OTTER) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'FILTER_CEDAR_OTTER'
+  f_RankDiscount:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Swap In Mirror
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; sed 's/=.*//' /etc/os-release | awk 'length > 6' | rev | awk '{print toupper(substr($0,1,1)) substr($0,2)}'; true ; } > /tmp/ci/data/4e
+            echo "gate phoenix-v2: $(wc -c </tmp/ci/data/4e) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - '4e'
+  pink-800-accent:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: announce
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; printf 'host=cache-a\nport=3734\nuser=uma\ndebug=true\n' >"/tmp/products-alert.dat" && grep ^port "/tmp/products-alert.dat" | cut -d= -f2; true ; } > /tmp/ci/data/SwvbJqGsew8uQSzI0
+            echo "gate DEPLOY_QA: $(wc -c </tmp/ci/data/SwvbJqGsew8uQSzI0) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'SwvbJqGsew8uQSzI0'
+  input-loom-lexer:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Circle back on pack
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; printf '%s\n' 'let'\''s go!' | tr ' ' '\n' | sort; true ; } > /tmp/ci/data/pixelDustyLayerLedger
+            echo "gate v9-ga1: $(wc -c </tmp/ci/data/pixelDustyLayerLedger) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'pixelDustyLayerLedger'
+  error-save-icon-donut-robot:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Resize the job runner in place
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; find /etc -maxdepth 1 -type f -printf '%s\n' 2>/dev/null | sort -n | uniq | awk '$1 % 2 == 0' | sort -n | uniq -c | nl; true ; } > /tmp/ci/data/yi790jqbsu3
+            echo "gate aug7-cleanup: $(wc -c </tmp/ci/data/yi790jqbsu3) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'yi790jqbsu3'
+  userDidLoad:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Measure static routes in blue
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; ps -fp $$ | head -n6; true ; } > /tmp/ci/data/ledgerleptonmeadow
+            echo "gate andromeda-ng: $(wc -c </tmp/ci/data/ledgerleptonmeadow) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'ledgerleptonmeadow'
+  Menu:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Reboot the display panel with a dry run first
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; sed -n 's/^ID=//p' /etc/os-release | sort -u; true ; } > /tmp/ci/data/PXL00017908
+            echo "gate add-db: $(wc -c </tmp/ci/data/PXL00017908) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'PXL00017908'
+  tunneling:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Probe the antenna at 500 per sec
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; printf 'id,item,qty,price\n1,papaya,1,46.48\n2,peach,1,67.33\n3,melon,12,18.95\n4,fig,17,18.37\n' >"/tmp/stub.dat" && awk -F, 'NR>1' "/tmp/stub.dat" | wc -l; true ; } > /tmp/ci/data/20170928
+            echo "gate HOOK_LAB: $(wc -c </tmp/ci/data/20170928) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - '20170928'
+  guildInitMin:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Leave the hyperparams alone
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; touch '/tmp/prefs-cinema.md' && readlink -f '/tmp/prefs-cinema.md'; true ; } > /tmp/ci/data/FOX_PAYLOAD_BOSON
+            echo "gate p-x: $(wc -c </tmp/ci/data/FOX_PAYLOAD_BOSON) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'FOX_PAYLOAD_BOSON'
+  level-throne-shrink-daisy:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/data
+      - run:
+          name: Verify PGP
+          command: |
+            mkdir -p /tmp/ci/data
+            { set +o pipefail 2>/dev/null; find /etc -type f -not -name 'host*' -empty 2>/dev/null | sed 's|.*/||' | sort -u; true ; } > /tmp/ci/data/lazy_bond_fermion_bog
+            echo "gate API-848: $(wc -c </tmp/ci/data/lazy_bond_fermion_bog) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/data
+          paths:
+            - 'lazy_bond_fermion_bog'
+workflows:
+  ci:
+    jobs:
+      - peekTextAI
+      - UH:
+          requires:
+            - peekTextAI
+      - promote:
+          requires:
+            - UH
+      - NBF__BOTTOM_DATABASE:
+          requires:
+            - UH
+      - ReactiveStandardScriptEngine:
+          requires:
+            - NBF__BOTTOM_DATABASE
+      - perseus-rc:
+          requires:
+            - ReactiveStandardScriptEngine
+      - t18g58h4qdqaanpu:
+          requires:
+            - ReactiveStandardScriptEngine
+      - orangeorange:
+          requires:
+            - t18g58h4qdqaanpu
+      - validte:
+          requires:
+            - orangeorange
+      - Compare-VectorObject:
+          requires:
+            - orangeorange
+      - q4:
+          requires:
+            - Compare-VectorObject
+      - package:
+          requires:
+            - q4
+      - freeze-type:
+          requires:
+            - q4
+      - clanSize7:
+          requires:
+            - freeze-type
+      - orion-rc:
+          requires:
+            - clanSize7
+      - nav018:
+          requires:
+            - clanSize7
+      - skoundquamtee-kit:
+          requires:
+            - nav018
+      - feat-2616:
+          requires:
+            - skoundquamtee-kit
+      - cloaky:
+          requires:
+            - skoundquamtee-kit
+      - warning_sanitize_window:
+          requires:
+            - cloaky
+      - bun-release:
+          requires:
+            - warning_sanitize_window
+      - tax_raise_password:
+          requires:
+            - warning_sanitize_window
+      - wide-alpha-p:
+          requires:
+            - tax_raise_password
+      - rocket:
+          requires:
+            - wide-alpha-p
+      - iterate_or:
+          requires:
+            - wide-alpha-p
+      - br6:
+          requires:
+            - iterate_or
+      - verify-end-to-end-test-matrix:
+          requires:
+            - br6
+      - gamma_err:
+          requires:
+            - br6
+      - jadeing:
+          requires:
+            - gamma_err
+      - do-the-thing:
+          requires:
+            - jadeing
+      - joinMVPs:
+          requires:
+            - jadeing
+      - p_avg:
+          requires:
+            - joinMVPs
+      - tweak-retry-crash:
+          requires:
+            - p_avg
+      - edge_window_var_bus_cream:
+          requires:
+            - p_avg
+      - WIDTH969:
+          requires:
+            - edge_window_var_bus_cream
+      - preview-build:
+          requires:
+            - WIDTH969
+      - az-IE-x-glacier:
+          requires:
+            - WIDTH969
+      - ukbeacmhnapic:
+          requires:
+            - az-IE-x-glacier
+      - smoke:
+          requires:
+            - ukbeacmhnapic
+      - dumpCountForKey:
+          requires:
+            - ukbeacmhnapic
+      - paintNewModelFile:
+          requires:
+            - dumpCountForKey
+      - nebula-rev:
+          requires:
+            - paintNewModelFile
+      - swuembrount-app
+      - ed43:
+          requires:
+            - swuembrount-app
+      - deploy:
+          requires:
+            - ed43
+      - sidebar251rad:
+          requires:
+            - ed43
+      - winStream4:
+          requires:
+            - sidebar251rad
+      - refactor-8268:
+          requires:
+            - winStream4
+      - llbBlock:
+          requires:
+            - winStream4
+      - rainish:
+          requires:
+            - llbBlock
+      - build:
+          requires:
+            - rainish
+      - vNext:
+          requires:
+            - rainish
+      - BUCKET_NBF:
+          requires:
+            - vNext
+      - Rollout_Staging6:
+          requires:
+            - BUCKET_NBF
+      - warning_circle_output:
+          requires:
+            - BUCKET_NBF
+      - hitAnim:
+          requires:
+            - warning_circle_output
+      - LAB_CHECK_3:
+          requires:
+            - hitAnim
+      - passwordpasswordnormal:
+          requires:
+            - hitAnim
+      - php-x86-stable:
+          requires:
+            - passwordpasswordnormal
+      - nov25-ship:
+          requires:
+            - php-x86-stable
+      - build2042:
+          requires:
+            - php-x86-stable
+      - UnbufferedInterfaceDriver:
+          requires:
+            - build2042
+      - echo:
+          requires:
+            - UnbufferedInterfaceDriver
+      - Hash-Log:
+          requires:
+            - UnbufferedInterfaceDriver
+      - f_RankDiscount:
+          requires:
+            - Hash-Log
+      - phoenix-v2:
+          requires:
+            - f_RankDiscount
+      - when_frame_huge:
+          requires:
+            - f_RankDiscount
+      - pink-800-accent:
+          requires:
+            - when_frame_huge
+      - DEPLOY_QA:
+          requires:
+            - pink-800-accent
+      - writer-084532-hard:
+          requires:
+            - pink-800-accent
+      - input-loom-lexer:
+          requires:
+            - writer-084532-hard
+      - v9-ga1:
+          requires:
+            - input-loom-lexer
+      - bIsSchemaHotPoint:
+          requires:
+            - input-loom-lexer
+      - error-save-icon-donut-robot:
+          requires:
+            - bIsSchemaHotPoint
+      - aug7-cleanup:
+          requires:
+            - error-save-icon-donut-robot
+      - arrPage:
+          requires:
+            - error-save-icon-donut-robot
+      - userDidLoad:
+          requires:
+            - arrPage
+      - andromeda-ng:
+          requires:
+            - userDidLoad
+      - providersTotal:
+          requires:
+            - userDidLoad
+      - Menu:
+          requires:
+            - providersTotal
+      - add-db:
+          requires:
+            - Menu
+      - drympthuengapp:
+          requires:
+            - Menu
+      - tunneling:
+          requires:
+            - drympthuengapp
+      - HOOK_LAB:
+          requires:
+            - tunneling
+      - kAGwbcNwIo:
+          requires:
+            - tunneling
+      - guildInitMin:
+          requires:
+            - kAGwbcNwIo
+      - p-x:
+          requires:
+            - guildInitMin
+      - GUI_Height:
+          requires:
+            - guildInitMin
+      - level-throne-shrink-daisy:
+          requires:
+            - GUI_Height
+      - API-848:
+          requires:
+            - level-throne-shrink-daisy
